@@ -40,7 +40,7 @@
             Thread.Sleep(Settings.SleepTime / 2);
             if (Console.KeyAvailable)
             {
-                this.key = Console.ReadKey();
+                this.key = Console.ReadKey(true);
                 switch (this.key.Key)
                 {
                     case ConsoleKey.Escape:
@@ -55,6 +55,9 @@
                     case ConsoleKey.UpArrow:
                         this.RotateFigure(figure);
                         break;
+                    case ConsoleKey.P:
+                        this.PauseGame();
+                        break;
                     default:
                         break;
                 }
@@ -62,7 +65,7 @@
 
             while (Console.KeyAvailable)
             {
-                key = Console.ReadKey(false);
+                this.key = Console.ReadKey(true);
             }
 
             foreach (var brick in figure.Bricks)
@@ -91,7 +94,7 @@
             if (figure.IsFallin)
             {
                 this.MoveFigureDown(figure);
-                if (!(this.key.Key == ConsoleKey.DownArrow))
+                if (this.key.Key != ConsoleKey.DownArrow)
                 {
                     Thread.Sleep(Settings.SleepTime / 2);
                 }
@@ -104,6 +107,15 @@
             }
             
             return isRunning;
+        }
+
+        private void PauseGame()
+        {
+            this.key = Console.ReadKey(true);
+            while (this.key.Key != ConsoleKey.P)
+            {
+                this.key = Console.ReadKey(true);
+            }
         }
 
         private int GetTheTopRow(IFigure figure)

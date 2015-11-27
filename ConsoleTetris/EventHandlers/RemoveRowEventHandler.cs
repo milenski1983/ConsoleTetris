@@ -1,4 +1,4 @@
-﻿namespace ConsoleTetris.Events
+﻿namespace ConsoleTetris.EventHandlers
 {
     using System;
 

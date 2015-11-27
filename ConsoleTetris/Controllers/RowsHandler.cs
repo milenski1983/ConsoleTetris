@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using ConsoleTetris.Events;
+    using ConsoleTetris.EventHandlers;
     using ConsoleTetris.Interfaces;
 
     public class RowsHandler
