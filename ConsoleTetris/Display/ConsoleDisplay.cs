@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
 
     using ConsoleTetris.Controllers;
+    using ConsoleTetris.Exceptions;
     using ConsoleTetris.Interfaces;
 
     public class ConsoleDisplay : IDisplay
@@ -58,6 +60,54 @@
             }
         }
 
+        public void DisplayWelcomeScreen()
+        {
+            Console.Clear();
+            Console.SetCursorPosition((this.WindowWidth / 2) - 7, this.WindowHeight / 2);
+            Console.Write("CONSOLE TETRIS");
+            Thread.Sleep(5000);
+        }
+
+        public int MenuVisualization()
+        {
+            this.DisplayMenu();
+            ConsoleKeyInfo choice = Console.ReadKey();
+            switch (choice.Key)
+            {
+                case ConsoleKey.D1:
+                    return 1;
+                case ConsoleKey.D2:
+                    return 2;
+                default:
+                    throw new InvalidChoiceException("Invalid Choice!");
+            }
+        }
+
+        private void DisplayMenu()
+        {
+            Console.Clear();
+            Console.SetCursorPosition((this.WindowWidth / 2) - 3, 0);
+            Console.WriteLine("MENU:");
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("For new game, press 1)");
+            Console.WriteLine("For game manual, press 2)");
+        }
+
+        public void DisplayManual()
+        {
+            Console.Clear();
+            Console.WriteLine("< and > to move the figure a side.");
+            Console.WriteLine("v to speed up the fall of the figure.");
+            Console.WriteLine("^ to rotate the figure.");
+        }
+
+        public void DisplayMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
         public void Draw(IFigure figure, IList<IBrick> stillBricks, PointsHandler score)
         {
             Console.Clear();
@@ -65,7 +115,6 @@
             this.DrawScore(score);
             this.DrawBricks(stillBricks);
             this.DrawBricks(figure.Bricks);
-            
         }
 
         private void DrawScore(PointsHandler score)
@@ -88,7 +137,7 @@
             for (int i = 0; i < this.WindowWidth; i++)
             {
                 Console.SetCursorPosition(i, this.WindowHeight - 2);
-                Console.Write('-');
+                Console.Write('_');
             }
         }
     }

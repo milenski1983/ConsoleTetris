@@ -47,6 +47,7 @@
     <Compile Include="Controllers\Updaters\ConsoleUpdater.cs" />
     <Compile Include="Display\ConsoleDisplay.cs" />
     <Compile Include="EventHandlers\RemoveRowEventHandler.cs" />
+    <Compile Include="Exceptions\InvalidChoiceException.cs" />
     <Compile Include="Exceptions\InvalidSleepTimeException.cs" />
     <Compile Include="Interfaces\IBrick.cs" />
     <Compile Include="Interfaces\IDisplay.cs" />

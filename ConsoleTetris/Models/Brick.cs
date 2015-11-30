@@ -6,7 +6,7 @@
 
     public class Brick : IBrick, IEquatable<Brick>
     {
-        private readonly char layout = '*';
+        private readonly char layout = '\u25a0';
 
         public Brick(Position position)
         {

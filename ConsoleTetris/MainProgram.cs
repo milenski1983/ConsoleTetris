@@ -1,8 +1,11 @@
 ﻿namespace ConsoleTetris
 {
+    using System.Threading;
+
     using ConsoleTetris.Controllers;
     using ConsoleTetris.Controllers.Updaters;
     using ConsoleTetris.Display;
+    using ConsoleTetris.Exceptions;
     using ConsoleTetris.Interfaces;
 
     public class MainProgram
@@ -16,7 +19,30 @@
             IDisplay display = new ConsoleDisplay(WindowHeight, WindowWidth);
             IUpdater updater = new ConsoleUpdater(highestRow, WindowWidth, new RowsHandler());
             IEngine engine = new Engine(display, updater);
-            engine.Run();
+
+            display.DisplayWelcomeScreen();
+            try
+            {
+                int choice = display.MenuVisualization();
+                switch (choice)
+                {
+                    case 1: 
+                        engine.Run();
+                        break;
+                    case 2:
+                        display.DisplayManual();
+                        Main(args);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (InvalidChoiceException ex)
+            {
+                display.DisplayMessage(ex.Message);
+                Thread.Sleep(2000);
+                Main(args);
+            }
         }
     }
 }

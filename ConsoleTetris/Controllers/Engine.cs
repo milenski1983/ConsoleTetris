@@ -28,6 +28,7 @@
         public void Run()
         {
             PointsHandler score = new PointsHandler(this.updater.RowsHandler);
+
             while (this.isRunning)
             {
                 if (this.figure == null || !this.figure.IsFallin)
